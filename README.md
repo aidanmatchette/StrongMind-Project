@@ -5,8 +5,8 @@
 ## Setup
 
 ### Dependecies
-> Python3
-PostgreSQL
+- Python3
+- PostgreSQL
 
 
 ### Clone repo (take note of ending dot if you don't want to make another subfolder)
