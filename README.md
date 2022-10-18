@@ -48,6 +48,11 @@ python3 manage.py loaddata db
 python manage.py migrate
 ~~~
 
+### Run Tests
+~~~
+python manage.py test
+~~~
+
 ### Run application 
 ~~~
 python manage.py runserver
