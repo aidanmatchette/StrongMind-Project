@@ -1,0 +1,35 @@
+{% extends 'pages/main.html' %} {% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/new_ingredient.css' %}" />
+{% endblock %}
+{% block content %}
+
+<div style="display:flex;width:100%;">
+    <form method="POST">
+		{% csrf_token %}
+        <div style="width:100%;">
+            <p>INGREDIENT NAME</p>
+            <input name="name" autofocus>
+        </div>
+        <div class="btn-container">
+            <div class="form-row">
+                <a class="back-btn" type="button" href="{% url 'ingredients'%}">BACK</a>
+            </div>
+            <div class="form-row" type="submit">
+                <button class="back-btn">SAVE</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% if error %}
+{% for e, v in error.items %}
+    <div class="w-50 alert alert-warning alert-dismissible" role="alert">
+          {{ v }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            x
+        </button>
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}

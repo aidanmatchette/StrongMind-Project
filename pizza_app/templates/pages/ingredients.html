@@ -1,0 +1,24 @@
+{% extends 'pages/main.html' %} {% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/ingredients.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="ingredient-container" style="display:flex;width:100%;">
+    <div class="ingredient-list">
+        {% for ingredient in ingredients %}
+        <div class="items">
+            <a>{{ingredient}}</a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="btn-container">
+        <div class="form-row">
+            <a class="back-btn" type="button" href="{% url 'edit-ingredients' %}">EDIT INGREDIENTS</a>
+        </div>
+        <div class="form-row">
+            <a class="back-btn" type="button" href="{% url 'new-ingredient'%}">ADD INGREDIENT</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

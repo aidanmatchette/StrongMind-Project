@@ -1,0 +1,32 @@
+{% extends 'pages/main.html' %} {% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/pizza.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="ingredient-container" style="display:flex;width:100%;">
+    <div class="ingredient-list">
+        {% for pizza in pizzas %}
+        <a class="items" href={% url 'edit-pizza' pizza.id %}>{{pizza}}</a>
+        {% endfor %}
+    </div>
+    <div class="form-row">
+        <a class="back-btn" type="button" href="{% url 'new-pizza' %}">ADD PIZZA</a>
+    </div>
+</div>
+{% endblock %}
+
+<div>
+    <ul>
+        {% for pizza in pizzas %}
+        <li class="ingredient-list">
+            <a href={% url 'edit-pizza' pizza.id %}>{{pizza}}</a>
+        </li>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="delete" value="{{pizza.id}}" />
+            <input type="submit" class="delete btn btn-close" value="" />
+        </form>
+        {% endfor %}
+    </ul>
+    <a class="btn btn-primary" href="{% url 'new-pizza' %}">Add New Pizza</a>
+</div>

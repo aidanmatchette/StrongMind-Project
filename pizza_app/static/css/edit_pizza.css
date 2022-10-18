@@ -1,0 +1,65 @@
+body, html {
+    background-image: url("../images/new_ingredient.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+* {
+    box-sizing: border-box;
+}
+input:focus {
+    outline: none;
+}
+label {
+    font-size:22px;
+    font-Weight: bold;
+    color: #D8D8D8;
+}
+.pizza-container > h2 {
+    color: #D8D8D8;
+}
+.input {
+    font-size:22px;
+    letter-spacing:1px;
+    border: 0;
+    background: transparent;
+    border-radius: .25rem;
+    color: #D8D8D8;
+    background-color: transparent;
+    border: 1px solid white;
+}
+.pizza-container {
+    margin: auto;
+    width: 45%;
+    text-align: center;
+    border: 1pt solid white;
+    padding-top: 1rem;
+    margin-top: 6rem;
+    border-radius: 1rem;
+    margin-bottom: .5rem;
+}
+.back-btn:hover {
+    background-color: #355982;
+    color: #ffffff;
+}
+
+.back-btn {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #5995da;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 40px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: auto;
+}
+.back {
+    display: flex;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+

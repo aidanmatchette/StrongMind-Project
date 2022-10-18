@@ -1,71 +1,141 @@
-from django.contrib.auth import authenticate, login, logout
-from .models import AppUser
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
+from django.core.exceptions import ValidationError
+from django.shortcuts import render, redirect, reverse
+from .models import Ingredients, Pizza
 
 
 def homepage(request):
-    Index = open("build/index.html").read()
-    return HttpResponse(Index)
+    return render(request, "pages/index.html")
 
 
-@csrf_exempt
-def log_in(request):
-    data = json.loads(request.body)
-
-    email = data["email"]
-    password = data["password"]
-
-    user = authenticate(username=email, password=password)
-
-    if user is not None:
-        if user.is_active:
-            try:
-                login(request, user)
-                return JsonResponse(
-                    {
-                        "user": user.name,
-                        "user_id": user.id,
-                        "is_owner": user.is_owner,
-                        "message": "You have successfully logged in",
-                    },
-                    status=200,
-                )
-            except Exception as e:
-                return JsonResponse({"error message": e}, status=299)
-        else:
-            return JsonResponse(
-                {"error message": "Your account is no longer active"}, status=299
-            )
-    else:
-        return JsonResponse({"error message": "You do not have an account"}, status=299)
+def ingredients(request):
+    data = {}
+    data["ingredients"] = Ingredients.objects.all()
+    return render(request, "pages/ingredients.html", data)
 
 
-@csrf_exempt
-def sign_up(request):
-    data = json.loads(request.body)
+def new_ingredient(request):
+    data = {}
 
-    try:
-        AppUser.objects.create_user(
-            username=data["email"],
-            password=data["password"],
-            name=data["name"],
-            email=data["email"],
-            is_owner=data["is_owner"],
-        )
-        return JsonResponse(
-            {"message": "Your account has been successfully created"}, status=200
-        )
-    except Exception as e:
-        print(str(e))
-        return JsonResponse(
-            {"message": "There was an error during your request"}, status=299
-        )
+    if request.method == "POST":
+        try:
+            ingredient = Ingredients()
+            ingredient.ingredient_name = request.POST["name"]
+            ingredient.full_clean()
+            ingredient.save()
+
+            return redirect("ingredients")
+
+        except ValidationError as ve:
+            data["error"] = ve.message_dict
+
+    return render(request, "pages/new_ingredient.html", data)
 
 
-@csrf_exempt
-def log_out(request):
-    logout(request)
-    return JsonResponse({"message": "You have successfully logged out"})
+def edit_ingredients(request):
+    data = {}
+    data["ingredients"] = Ingredients.objects.all()
+
+    if request.method == "POST":
+        delete_record = "delete" in request.POST
+
+        try:
+            if delete_record:
+                record_id = request.POST["delete"]
+                Ingredients.objects.get(pk=record_id).delete()
+            else:
+                update_id = request.POST["add"]
+                update_record = Ingredients.objects.get(pk=update_id)
+                update_record.ingredient_name = request.POST["ingredient_name"]
+                update_record.full_clean()
+                update_record.save()
+
+            return redirect("ingredients")
+        except ValidationError as ve:
+            data["error"] = ve.message_dict
+
+    return render(request, "pages/edit_ingredients.html", data)
+
+
+def pizzas(request):
+    data = {}
+    data["pizzas"] = Pizza.objects.all()
+
+    if request.method == "POST":
+        delete_record = "delete" in request.POST
+        try:
+            if delete_record:
+                record_id = request.POST["delete"]
+                Pizza.objects.get(pk=record_id).delete()
+            return redirect("pizzas")
+
+        except ValidationError as ve:
+            data["error"] = ve.message_dict
+
+    return render(request, "pages/pizzas.html", data)
+
+
+def new_pizza(request):
+    data = {}
+    data["ingredients"] = Ingredients.objects.all()
+
+    if request.method == "POST":
+        try:
+            pizza = Pizza()
+            pizza.pizza_name = request.POST["name"]
+            pizza.save()
+
+            for ingredient in request.POST.getlist("ingredients"):
+                pizza.ingredients.add(Ingredients.objects.get(id=ingredient))
+
+            pizza.full_clean()
+            pizza.save()
+
+            return redirect("pizzas")
+
+        except ValidationError as ve:
+            data["error"] = ve.message_dict
+
+    return render(request, "pages/new_pizza.html", data)
+
+
+def edit_pizza(request, pizza_id):
+    data = {}
+    data["pizza"] = Pizza.objects.get(pk=pizza_id)
+    data["ingredients"] = Ingredients.objects.all()
+
+    if request.method == "POST":
+        print("ddddddddd", request.POST)
+        delete_record = "delete" in request.POST
+        delete_ingredient = "delete_ingredient" in request.POST
+        update_name = "pizza_name" in request.POST
+
+        try:
+            if delete_record:
+                record_id = request.POST["delete"]
+                Pizza.objects.get(pk=record_id).delete()
+
+                return redirect("pizzas")
+            elif delete_ingredient:
+                ingredient_id = request.POST["delete_ingredient"]
+                curr_pizza = Pizza.objects.get(pk=pizza_id)
+                curr_pizza.ingredients.remove(Ingredients.objects.get(id=ingredient_id))
+            elif update_name:
+                curr_pizza = Pizza.objects.get(pk=pizza_id)
+                curr_pizza.pizza_name = request.POST["pizza_name"]
+
+                curr_pizza.full_clean()
+                curr_pizza.save()
+
+            else:
+                new_ingredient = request.POST["new_ingredient"]
+                curr_pizza = Pizza.objects.get(pk=pizza_id)
+                curr_pizza.ingredients.add(Ingredients.objects.get(id=new_ingredient))
+
+                curr_pizza.full_clean()
+                curr_pizza.save()
+
+            return redirect(reverse("edit-pizza", args=(pizza_id,)))
+        except ValidationError as ve:
+            data["error"] = ve.message_dict
+
+    return render(request, "pages/edit_pizzas.html", data)

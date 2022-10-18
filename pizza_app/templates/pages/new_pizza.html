@@ -1,0 +1,61 @@
+{% extends 'pages/main.html' %} {% load static %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/new_pizza.css' %}" />
+{% endblock %}
+{% block content %}
+<div style="display:flex;width:100%;">
+    <form method="POST">
+		{% csrf_token %}
+        <div style="width:100%;">
+            <p>PIZZA NAME</p>
+            <input name="name" autofocus>
+        </div>
+        <div class="check-container">
+            {% for ingredient in ingredients %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{ingredient.id}}" name="ingredients" id="ingredient_name">
+                <label class="form-check-label" for="ingredient_name">{{ingredient.ingredient_name}}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="btn-container">
+            <div class="form-row">
+                <a class="back-btn" type="button" href="{% url 'pizzas'%}">BACK</a>
+            </div>
+            <div class="form-row" type="submit">
+                <button>SAVE</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% if error %}
+{% for e, v in error.items %}
+    <div class="w-50 alert alert-warning alert-dismissible" role="alert">
+          {{ v }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            x
+        </button>
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+<div class="box">
+	<form method="POST">
+		{% csrf_token %}
+		<label class="label" for="category">Pizza Name:</label>
+		<input class="user-input" name="name" placeholder="New Pizza" />
+        <label for="ingredients">Choose Ingredients:</label>
+
+        {% for ingredient in ingredients %}
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ingredient.id}}" name="ingredients" id="ingredient_name">
+            <label class="form-check-label" for="ingredient_name">{{ingredient.ingredient_name}}</label>
+        </div>
+        {% endfor %}
+		<input type="submit" class="btn btn-primary" value="Submit" />
+	</form>
+
+	<div class="text-center">
+		<a class="home btn btn-primary" href="{% url 'pizzas'%}">Back</a>
+	</div>
+</div>

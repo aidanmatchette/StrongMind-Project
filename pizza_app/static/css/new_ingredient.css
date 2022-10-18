@@ -1,0 +1,75 @@
+body, html {
+    background-image: url("../images/new_ingredient.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input:focus{
+    outline: none;
+}
+.form-row button {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #5995da;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 40px;
+  cursor: pointer;
+}
+a:hover {
+    color: #ffffff;
+    background-color: #355982;
+    text-decoration: none;
+    cursor: pointer;
+}
+.back-btn {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #5995da;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 40px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.back-btn:hover {
+    background-color: #355982;
+}
+.btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+form{
+    margin-top: 6rem;
+    width: 35%;
+    margin-left:auto;
+    margin-right:auto;
+    padding:50px;
+    background:whitesmoke;
+    border-radius:5px;
+    position:relative;
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+form > div {
+    float:left;
+    margin-bottom:30px;
+}
+form > div > p{
+    font-size: 22px;
+    margin-bottom: 3px;
+    font-weight: 600;
+}
+form > div > input{
+    font-size: 20px;
+    letter-spacing:1px;
+    padding:  5px;
+    border: 0;
+    background:  whitesmoke;
+    border-bottom: 1px solid silver;
+    width: 100%;
+    color: gray;
+}
