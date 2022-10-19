@@ -45,15 +45,17 @@ createdb strongmind
 pip install -r requirements.txt
 ~~~
 
-### Load fixture data
-~~~
-python3 manage.py loaddata db
-~~~
 
 ### Migrate to database
 ~~~
 python manage.py migrate
 ~~~
+
+### Load fixture data
+~~~
+python3 manage.py loaddata db
+~~~
+
 
 ### Run Tests
 ~~~
