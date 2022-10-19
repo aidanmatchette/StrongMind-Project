@@ -12,7 +12,8 @@
 ### Clone repo (take note of ending dot if you don't want to make another subfolder)
 ~~~
 git clone https://github.com/aidanmatchette/StrongMind-Project.git
-
+~~~
+~~~
 cd StrongMind-Project
 ~~~
 
