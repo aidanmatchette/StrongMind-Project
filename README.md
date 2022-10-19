@@ -35,7 +35,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ~~~
 
-### Create a PostgreSQL database
+### [Create a PostgreSQL database](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 ~~~
 createdb strongmind
 ~~~
