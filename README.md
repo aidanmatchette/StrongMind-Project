@@ -52,7 +52,7 @@ python manage.py test
 
 ### Migrate to database
 ~~~
-python manage.py migrate
+python3 manage.py migrate
 ~~~
 
 ### Load fixture data
@@ -64,7 +64,7 @@ python3 manage.py loaddata db
 
 ### Run application 
 ~~~
-python manage.py runserver
+python3 manage.py runserver
 ~~~
 
 ### Navigate to http://localhost:8000/
