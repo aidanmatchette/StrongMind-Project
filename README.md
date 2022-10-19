@@ -45,6 +45,10 @@ createdb strongmind
 pip install -r requirements.txt
 ~~~
 
+### Run Tests
+~~~
+python manage.py test
+~~~
 
 ### Migrate to database
 ~~~
@@ -57,10 +61,6 @@ python3 manage.py loaddata db
 ~~~
 
 
-### Run Tests
-~~~
-python manage.py test
-~~~
 
 ### Run application 
 ~~~
