@@ -27,12 +27,9 @@ load_dotenv(find_dotenv())
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    'pizza.aidanmatchette.com',
-    '127.0.0.1:localhost'
-]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
