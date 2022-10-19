@@ -5,9 +5,13 @@
 ## Setup
 
 ### Dependecies
-- Python3
-- PostgreSQL
-
+- [Python3](https://www.python.org/downloads/)
+- [PostgreSQL](https://www.postgresql.org/download/)
+- [Pip3](https://stackoverflow.com/questions/6587507/how-to-install-pip-with-python-3)
+- Python Venv
+~~~
+pip install virualenv
+~~~
 
 ### Clone repo (take note of ending dot if you don't want to make another subfolder)
 ~~~
@@ -28,7 +32,7 @@ python3 -m venv .venv
 
 #### (Mac/Linux) Go into virtual environment
 ~~~
-source venv/bin/activate
+source .venv/bin/activate
 ~~~
 
 ### Create a PostgreSQL database
